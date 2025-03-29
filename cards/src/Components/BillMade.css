@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.img{
+    
+    height: 70px;
+    width: 70px;
+}
+
+li{
+    margin: 2rem;
+    display: flex;
+    justify-content: space-between;
+   background-color: #fff;
+}
+
+.name-list, .text-danger{
+    margin-left: 1.5rem;
+}
+
+.form-add-friend, .form-split-bill{
+    margin: 2rem;
+    padding: 2rem;
+    background-color: #FDE7BB;
+}
+
+.list{
+    padding: 1rem;
+    background-color: #BFBBA9 ;
+}
