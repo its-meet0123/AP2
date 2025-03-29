@@ -13,7 +13,7 @@ export default function PopCron() {
   const [inLoading, setInLoading] = useState(false);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
-  const [selectedId, setSelectedId] = useState("tt0056305");
+  const [selectedId, setSelectedId] = useState("");
   //const custemquery = "interstellar";
 
   //fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`) // Api ko console mai print krvaa ke // dekhe ge data fecth kaise hota hai
@@ -45,7 +45,7 @@ export default function PopCron() {
 
           setMovies(data.Search);
 
-          console.log(data.Search);
+          //console.log(data.Search);
           //console.log(movies); // empty arry because state still empty on useState.
           // setInLoading(false); // can't understand
         } catch (err) {
