@@ -78,14 +78,13 @@ function WatchMovieDetail({ wacthed, selectedID }) {
           `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedID}`
         );
         const data = await res.json();
-        setMovieData(data);
-        // if (data.Response === "False") {
-        //   setError(data.Error); // Handle API error
-        //   setMovieData(null);
-        // } else {
-        //   setMovieData(data);
-        //   setError(null);
-        // }
+        if (data.Response === "False") {
+          setError(data.Error); // Handle API error
+          setMovieData(null);
+        } else {
+          setMovieData(data);
+          setError(null);
+        }
       } catch (err) {
         setError("Failed to fetch movie details.");
         setMovieData(null);
@@ -96,13 +95,13 @@ function WatchMovieDetail({ wacthed, selectedID }) {
     }
   }, [selectedID]);
 
-  // if (error) {
-  //   return <Row className="m-3 p-2 bg-danger text-light">{error}</Row>;
-  // }
+  if (error) {
+    return <Row className="m-3 p-2 bg-danger text-light">{error}</Row>;
+  }
 
-  // if (!movieData) {
-  //   return;
-  // }
+  if (!movieData) {
+    return;
+  }
 
   return (
     <>
