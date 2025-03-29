@@ -18,6 +18,7 @@ export default function MovieList({ movies, wacthed, select, onSelection }) {
     <>
       <Container className=" mt-4 text-light">
         <Row>
+          {/* // List view */}
           <Col className=" m-1 p-2 ">
             {movies?.map((movie) => (
               <Movies
@@ -27,8 +28,9 @@ export default function MovieList({ movies, wacthed, select, onSelection }) {
               />
             ))}
           </Col>
+          {/* // detail view */}
           <Col className="m-1 p-2 ">
-            <WatchMovieList wacthed={wacthed} selectedID={select} />
+            <WatchMovieDetail wacthed={wacthed} selectedID={select} />
           </Col>
         </Row>
       </Container>
@@ -64,23 +66,83 @@ function Movies({ list, onSelection }) {
   );
 }
 
-function WatchMovieList({ wacthed, selectedID }) {
-  console.log(selectedID);
+function WatchMovieDetail({ wacthed, selectedID }) {
+  console.log('movie detail:', selectedID);
+  const [movieData, setMovieData] = useState(null); // Initialize as null
+  const [error, setError] = useState(null); // State to handle errors
 
   useEffect(function () {
-    async function getMovieDitails() {
-      const res = await fetch(
-        `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedID}`
-      );
-      const data = await res.json();
-      console.log(data);
+    async function getMovieDetails() {
+      try {
+        const res = await fetch(
+          `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedID}`
+        );
+        const data = await res.json();
+        setMovieData(data);
+        // if (data.Response === "False") {
+        //   setError(data.Error); // Handle API error
+        //   setMovieData(null);
+        // } else {
+        //   setMovieData(data);
+        //   setError(null);
+        // }
+      } catch (err) {
+        setError("Failed to fetch movie details.");
+        setMovieData(null);
+      }
     }
-    getMovieDitails();
-  }, []);
+    if (selectedID != null && selectedID !== "") {
+      getMovieDetails();
+    }
+  }, [selectedID]);
+
+  // if (error) {
+  //   return <Row className="m-3 p-2 bg-danger text-light">{error}</Row>;
+  // }
+
+  // if (!movieData) {
+  //   return;
+  // }
 
   return (
     <>
-      <Row className="m-3 p-2  bg-secondary">hlo my movie id {selectedID}</Row>
+      {movieData && (
+        <Row className="m-3 p-2 bg-secondary text-light">
+          <Col>
+            <h3>{movieData.Title}</h3>
+            <p>
+              <strong>Plot:</strong> {movieData.Plot}
+            </p>
+            <p>
+              <strong>Director:</strong> {movieData.Director}
+            </p>
+            <p>
+              <strong>Year:</strong> {movieData.Year}
+            </p>
+            <p>
+              <strong>Genre:</strong> {movieData.Genre}
+            </p>
+            <p>
+              <strong>Actors:</strong> {movieData.Actors}
+            </p>
+            <p>
+              <strong>Language:</strong> {movieData.Language}
+            </p>
+            <p>
+              <strong>Country:</strong> {movieData.Country}
+            </p>
+            <p>
+              <strong>Runtime:</strong> {movieData.Runtime}
+            </p>
+            <p>
+              <strong>IMDB Rating:</strong> {movieData.imdbRating}
+            </p>
+            <p>
+              <strong>Awards:</strong> {movieData.Awards}
+            </p>
+          </Col>
+        </Row>
+      )}
     </>
   );
 }
