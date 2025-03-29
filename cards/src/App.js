@@ -1,5 +1,5 @@
 import "./App.css";
-import BillMade from "./Components/BillMade.js";
+//import BillMade from "./Components/BillMade.js";
 import PopCron from "./Popcrone/Pcomponents.js";
 
 function App() {
